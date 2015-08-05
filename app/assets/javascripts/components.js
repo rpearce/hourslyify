@@ -1,9 +1,4 @@
-<% if Rails.env.production? %>
-  var React = require('react');
-<% else %>
-  var React = require('react/addons');
-<% end %>
-
+var React = require('react');
 var Tasks = require('./tasks/Container.react');
 
 module.exports = function() {

@@ -10,6 +10,7 @@ var List = React.createClass({
           <th>Rate</th>
           <th>Start</th>
           <th>Stop</th>
+          <th></th>
         </tr>
         {this._buildItems()}
       </table>
@@ -18,8 +19,8 @@ var List = React.createClass({
 
   _buildItems: function() {
     return this.props.items.map(function(item) {
-      return <Item data={item} key={item.name + item.id} />
-    });
+      return <Item data={item} updateTask={this.props.updateTask} removeTask={this.props.removeTask} key={item.name + item.id} />
+    }.bind(this));
   }
 });
 

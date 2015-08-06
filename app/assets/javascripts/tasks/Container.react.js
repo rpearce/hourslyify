@@ -18,7 +18,7 @@ var Container = React.createClass({
     return (
       <div>
         <Form createTask={this._createTask} />
-        <List items={this.state.items} />
+        <List items={this.state.items} updateTask={this._updateTask} removeTask={this._removeTask} />
       </div>
     );
   },
@@ -36,7 +36,24 @@ var Container = React.createClass({
       .send(data)
       .set('Accept', 'application/json')
       .set('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content)
-      .end(this._handleCreate);
+      .end(this._handleChange);
+  },
+
+  _updateTask: function(data) {
+    request
+      .patch('/tasks/' + data.id)
+      .send(data)
+      .set('Accept', 'application/json')
+      .set('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content)
+      .end(this._handleChange);
+  },
+
+  _removeTask: function(id) {
+    request
+      .del('/tasks/' + id)
+      .set('Accept', 'application/json')
+      .set('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content)
+      .end(this._handleChange);
   },
 
   _handleFetch: function(err, res) {
@@ -44,7 +61,7 @@ var Container = React.createClass({
     this.setState({ items: res.body });
   },
 
-  _handleCreate: function(err, res) {
+  _handleChange: function(err, res) {
     if (err) { console.log(err.response); return; }
     this._fetchTasks();
   }

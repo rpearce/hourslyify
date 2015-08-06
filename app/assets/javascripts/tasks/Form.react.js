@@ -1,6 +1,10 @@
 var React = require('react');
 
 var Form = React.createClass({
+  componentWillUpdate: function() {
+    this._clearInputs();
+  },
+
   render: function() {
     return (
       <form onSubmit={this._handleSubmit}>
@@ -37,6 +41,13 @@ var Form = React.createClass({
     };
 
     this.props.createTask(data);
+  },
+
+  _clearInputs: function() {
+    var self = this;
+    ['name', 'currentRate', 'start', 'stop'].forEach(function(item) {
+      self.refs[item].getDOMNode().value = '';
+    });
   }
 });
 

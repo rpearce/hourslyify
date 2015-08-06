@@ -18,7 +18,7 @@ var List = React.createClass({
 
   _buildItems: function() {
     return this.props.items.map(function(item) {
-      return <Item data={item} key={item.name} />
+      return <Item data={item} key={item.name + item.id} />
     });
   }
 });

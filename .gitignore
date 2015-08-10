@@ -12,3 +12,6 @@
 !/log/.keep
 /tmp
 node_modules
+.foreman
+dump.rdb
+.env
